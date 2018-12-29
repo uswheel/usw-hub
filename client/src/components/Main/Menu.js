@@ -6,11 +6,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from 'reactstrap';
 
 class Menu extends React.Component {
@@ -36,10 +32,10 @@ class Menu extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className="ml-auto">
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem className="ml-auto">
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink href="/inventory">Inventory</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
