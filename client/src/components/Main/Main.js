@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Menu from './Menu';
+import Home from './Home';
+import Inventory from './Inventory/Inventory';
+import { Route } from 'react-router-dom';
 
-class Main extends React.Component {
+class Main extends Component {
   render() {
     return (
       <div>
-        Hello Main
+        <Menu />
+        <Route path="/" exact component={Home} />
+        <Route path="/inventory" component={Inventory} />
       </div>
     )
   }

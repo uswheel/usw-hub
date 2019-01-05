@@ -1,0 +1,15 @@
+body {
+  text-align: center;
+  background-image:  url('./background.png');
+  overflow-y: scroll;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+table {
+  font-size: calc(11px + (18 - 11) * ((100vw - 300px) / (1600 - 300)));
+}

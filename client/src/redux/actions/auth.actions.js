@@ -6,8 +6,10 @@ export const login = (user) => dispatch => {
   return new Promise((resolve, reject) => {
     axios.get('/auth/login', { params: user })
       .then(res => {
+        console.log(res);
         const token = res.data.token;
         localStorage.setItem('token', token);
+        window.location.href = '/'
         resolve();
       })
       .catch(err => {
@@ -23,7 +25,7 @@ export const logout = () => {
   setUser();
 };
 
-const setUser = user => dispatch => {
+export const setUser = user => dispatch => {
   dispatch({
     type: SET_USER,
     payload: user
