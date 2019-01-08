@@ -5,12 +5,17 @@ const error = require('../helpers/error.helpers');
 const router = express.Router();
 
 router.get('/items', (req, res) => {
-  const query = req.body;
-  console.log(req.body);
+  const query = req.query;
   getItems();
   async function getItems() {
     try {
       const items = await db.Item.findAll({
+        where: query,
+        order: [
+          ['location', 'ASC'],
+          ['rack', 'ASC'],
+          ['partNumber', 'ASC']
+        ]
       })
         .catch(err => {
           console.error(err);

@@ -14,14 +14,20 @@ class Table extends Component {
 
   createTableBody() {
     const table = this.props.data.map((item, index) =>
-      <tr key={index}>
-        <th scope="row">{index}</th>
+      <tr key={`item${item.id}`}>
         <td>{item.partNumber}</td>
         <td>{item.location}</td>
         <td>{item.rack}</td>
         <td>{item.level}</td>
         <td>{item.column}</td>
         <td>{item.quantity}</td>
+        <td>
+          <button
+            className="btn btn-sm btn-outline-danger dynamic-font2 py-0"
+            style={{ fontSize: 'inherit' }}
+            onClick={() => this.props.editButton(item.id, index)}
+          >Edit</button>
+        </td>
       </tr>
     )
     this.setState({ table: table })
@@ -29,20 +35,20 @@ class Table extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         {this.state.table ?
           <div className="row">
             <div className="col">
-              <table className="table table-striped table-bordered table-sm shadow bg-white">
+              <table className="table dynamic-font table-striped table-bordered table-sm shadow bg-white shadow">
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Part Number</th>
-                    <th>Location</th>
+                    <th>Pt. No.</th>
+                    <th>Loc.</th>
                     <th>Rack</th>
-                    <th>Level</th>
-                    <th>Column</th>
-                    <th>Quantity</th>
+                    <th>Lvl.</th>
+                    <th>Col.</th>
+                    <th>Qty.</th>
+                    <th>Edit</th>
                   </tr>
                 </thead>
                 <tbody>{this.state.table}</tbody>
