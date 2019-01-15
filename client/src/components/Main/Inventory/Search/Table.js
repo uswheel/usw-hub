@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import TableRow from './TableRow';
 
 class Table extends Component {
   state = {
-    table: null
+    table: null,
   }
 
   componentDidUpdate(oldProps) {
@@ -13,23 +14,7 @@ class Table extends Component {
   }
 
   createTableBody() {
-    const table = this.props.data.map((item, index) =>
-      <tr key={`item${item.id}`}>
-        <td>{item.partNumber}</td>
-        <td>{item.location}</td>
-        <td>{item.rack}</td>
-        <td>{item.level}</td>
-        <td>{item.column}</td>
-        <td>{item.quantity}</td>
-        <td>
-          <button
-            className="btn btn-sm btn-outline-danger dynamic-font2 py-0"
-            style={{ fontSize: 'inherit' }}
-            onClick={() => this.props.editButton(item.id, index)}
-          >Edit</button>
-        </td>
-      </tr>
-    )
+    const table = this.props.data.map((item) => <TableRow item={item} key={`item${item.id}`} />)
     this.setState({ table: table })
   }
 
@@ -42,12 +27,9 @@ class Table extends Component {
               <table className="table dynamic-font table-striped table-bordered table-sm shadow bg-white shadow">
                 <thead>
                   <tr>
-                    <th>Pt. No.</th>
-                    <th>Loc.</th>
-                    <th>Rack</th>
-                    <th>Lvl.</th>
-                    <th>Col.</th>
-                    <th>Qty.</th>
+                    <th className="sticky-top bg-light">Part Number</th>
+                    <th className="sticky-top bg-light">Loc.</th>
+                    <th className="sticky-top bg-light">Qty.</th>
                     <th>Edit</th>
                   </tr>
                 </thead>

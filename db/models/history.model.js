@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = (sequelize, type) => {
-  const Item = sequelize.define('Item', {
+  const History = sequelize.define('History', {
     id: {
       type: Sequelize.DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -9,9 +9,10 @@ module.exports = (sequelize, type) => {
     },
     partNumber: type.STRING,
     location: type.STRING,
-    row: type.INTEGER,
-    column: type.INTEGER,
-    quantity: type.INTEGER.UNSIGNED
+    row: type.INTEGER.UNSIGNED,
+    column: type.INTEGER.UNSIGNED,
+    change: type.INTEGER,
+    user: type.STRING
   })
-  return Item;
+  return History;
 }

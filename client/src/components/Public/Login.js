@@ -33,11 +33,11 @@ class Login extends Component {
             <div className="rounded bg-white border shadow mt-4 p-3">
               <h1 className="mt-2">Login</h1>
               <form className="mt-4 mx-3 mb-2">
-                <div className="form-group">
-                  <input type="string" className="form-control" placeholder="Email" name="email" onChange={this.handleInput} value={this.state.email} />
+                <div className="form-group  d-flex justify-content-center">
+                  <input type="string" className="form-control" placeholder="Email" name="email" onChange={this.handleInput} value={this.state.email} style={{ maxWidth: 400 }} />
                 </div>
-                <div className="form-group">
-                  <input type="password" className="form-control" placeholder="Password" name="password" onChange={this.handleInput} value={this.state.password} />
+                <div className="form-group d-flex justify-content-center">
+                  <input type="password" className="form-control my-3" placeholder="Password" name="password" onChange={this.handleInput} value={this.state.password} style={{ maxWidth: 400 }} />
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
               </form>

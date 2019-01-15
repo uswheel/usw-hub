@@ -44,11 +44,11 @@ class Menu extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                <NavItem className={`ml-auto ${window.location.pathname === '/' ? 'active' : null}`}>
+                <NavItem className={`ml-auto ${window.location.pathname === '/' ? 'active underline' : null}`}>
                   <Link to="/" className="nav-link" onClick={this.close}>Home</Link>
                 </NavItem>
-                <NavItem className={`ml-auto ${window.location.pathname === '/inventory' ? 'active' : null}`}>
-                  <Link to="/inventory" className="nav-link" onClick={this.close}>Inventory</Link>
+                <NavItem className={`ml-auto ${window.location.pathname.includes('/inventory') ? 'active underline' : null}`}>
+                  <Link to="/inventory/search" className="nav-link" onClick={this.close}>Inventory</Link>
                 </NavItem>
               </Nav>
             </Collapse>

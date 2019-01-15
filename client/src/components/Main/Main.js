@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Menu from './Menu';
 import Home from './Home';
-import Inventory from './Inventory/Search/Search';
+import Inventory from './Inventory/Inventory';
 import { Route } from 'react-router-dom';
 
 class Main extends Component {

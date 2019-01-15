@@ -5,19 +5,22 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
+import { FaArrowRight } from 'react-icons/fa';
 
 class EditModal extends Component {
   state = {
-    quantity: '',
-    difference: 0
+    difference: '-',
+    newQuantity: '',
   }
 
-  handler = (e, itemQuantity) => {
+
+  numberHandler = (e) => {
     const value = e.target.value;
-    if (value.length > 5) return;
+    if (value.length > 4) return;
     const name = e.target.name;
-    let difference = Number(value) - Number(itemQuantity);
+    let difference;
     if (value === '') difference = '-';
+    else difference = value - this.props.item.quantity;
     this.setState({
       [name]: value,
       difference: difference
@@ -25,94 +28,61 @@ class EditModal extends Component {
   }
 
   render() {
-    let differenceColor;
-    let differenceText;
     const difference = this.state.difference;
+    let differenceText = this.state.difference;
+    let color;
     if (difference > 0) {
-      differenceColor = 'text-success';
-      differenceText = '+' + this.state.difference;
+      differenceText = '+' + differenceText;
+      color = 'text-success'
     }
-    if (difference < 0) {
-      differenceColor = 'text-danger';
-      differenceText = this.state.difference;
-    }
-    if (difference === 0) differenceText = '-';
-    let itemInfo = null;
-    if (this.props.item) {
-      const item = this.props.item.data;
-      itemInfo = (
-        <>
-          <table className="table dynamic-font table-striped table-bordered table-sm shadow bg-white shadow mb-3">
-            <thead>
-              <tr>
-                <th>Pt. No.</th>
-                <th>Loc.</th>
-                <th>Rack</th>
-                <th>Lvl.</th>
-                <th>Col.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{item.partNumber}</td>
-                <td>{item.location}</td>
-                <td>{item.rack}</td>
-                <td>{item.level}</td>
-                <td>{item.column}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="border p-2 rounded shadow">
+    if (difference < 0) color = 'text-danger'
+
+    return (
+      <Modal isOpen={this.props.isOpen} autoFocus toggle={this.props.toggle}>
+        <ModalHeader toggle={this.props.toggle} className="py-1">Edit Item</ModalHeader>
+        <ModalBody style={{ background: '#e6e6e6' }}>
+          <div className="container">
             <div className="row">
-              <div className="col h4 mb-4 mt-2">Quantity</div>
+              <div className="col">
+                <div className="bg-white shadow mb-4">
+                  <table className="table table-sm table-bordered table-striped mb-0 table-white">
+                    <thead>
+                      <tr>
+                        <th>Part Number</th>
+                        <th>Loc.</th>
+                        <th>Qty.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{this.props.item.partNumber}</td>
+                        <td>{`${this.props.item.location}-${this.props.item.row}-${this.props.item.column}`}</td>
+                        <td>{this.props.item.quantity}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-            <div className="container">
-              <div className="row justify-content-center align-items-center">
-                <div className="col-auto">
-                  <div className="input-group mb-2">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" style={{ width: 60 }}>Old</span>
-                    </div>
-                    <div className="d-inline-block border px-3 rounded-right h3 mb-0" style={{ width: 100 }} >
-                      {item.quantity}
-                    </div>
-                  </div>
-                </div>
+            <div className="row align-items-center justify-content-center">
+              <div className="col-auto px-1">Old:</div>
+              <div className="col-auto px-2">
+                <div className="h4 px-2 py-1 mb-0 bg-white shadow border border-dark rounded">{this.props.item.quantity}</div>
               </div>
-              <div className="row justify-content-center align-items-center mb-2">
-                <div className="col-auto">
-                  <div className="h3 mb-0">↓</div>
-                </div>
-                <div className={`col-auto ${differenceColor}`}>{differenceText}</div>
+              <div className="col-auto px-1"><FaArrowRight /></div>
+              <div className="col-auto">
+                <div className={color}>{differenceText}</div>
               </div>
-              <div className="row justify-content-center align-items-center">
-                <div className="col-auto p-0">
-                  <div className="input-group input-group-lg mb-3">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text" style={{ width: 70 }}>New</span>
-                    </div>
-                    <input
-                      type="number"
-                      className="form-control text-center h2"
-                      value={this.state.quantity}
-                      name="quantity"
-                      onChange={(e) => this.handler(e, item.quantity)}
-                      style={{ width: 110 }}
-                    />
-                  </div>
-                </div>
+              <div className="col-auto px-1">New:</div>
+              <div className="col-auto px-1">
+                <input type="number" className="form-control" style={{ width: 75 }} name="newQuantity" value={this.state.newQuantity} onChange={this.numberHandler} />
               </div>
             </div>
           </div>
-        </>
-      )
-    }
-
-    return (
-      <Modal toggle={this.props.toggle} isOpen={this.props.isOpen} centered>
-        <ModalHeader toggle={this.props.toggle}>Edit Item</ModalHeader>
-        <ModalBody>{itemInfo}</ModalBody>
-        <ModalFooter><button className="btn btn-primary" onClick={this.props.editSubmit}>Submit</button></ModalFooter>
+        </ModalBody>
+        <ModalFooter className="py-1">
+          <button className="btn btn-primary">Submit</button>
+        </ModalFooter>
       </Modal>
     )
   }
